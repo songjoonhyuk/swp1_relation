@@ -1,0 +1,10 @@
+<h1>수정하기</h1>
+
+<h2>Current post:<%=@blog.id%></h2>
+
+
+<%=form_tag 'modifydo', method:'post' do %>
+    <input type="hidden" name="id" value="<%=@blog.id%>">
+    <textarea name="text"><%=@blog.content%></textarea>
+    <input type="submit">
+<% end %>

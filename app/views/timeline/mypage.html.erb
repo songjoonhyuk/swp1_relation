@@ -1,0 +1,26 @@
+<h1><%=current_user.email%>의 페이지</h1>
+
+
+<%=form_tag 'write', method:'post' do %>
+    <textarea name="text"></textarea>
+    <input type="submit">
+<% end %>
+
+
+
+<% @myblog.each do |m| %>
+<li><%=m.user.email%> : <%=m.content%></li>
+    <%=form_tag 'comment', method:'post' do %>
+        <input type='hidden' name='blog_id' value='<%=m.id%>'>
+        <input type='text' name='comment'>
+        <input type='submit'>
+    <% end %>
+    <a href ="/destroy?id=<%=m.id%>">delete</a>
+    <a href ="/modify?id=<%=m.id%>">modify</a>
+    
+    <ol>
+    <% m.comments.reverse.each do |c|%>
+    <li><%=c.user.email%> : <%=c.msg%></li>
+    <% end %>
+    </ol>
+<% end %>

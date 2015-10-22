@@ -1,0 +1,24 @@
+<h1>Simple Timeline 입니다.</h1>
+
+
+<%=form_tag 'write', method:'post' do %>
+    <textarea name="text"></textarea>
+    <input type="submit">
+<% end %>
+
+<% @blogs.each do |b| %>
+<li><%=b.user.email%> : <%=b.content%></li>
+    <%=form_tag 'comment', method:'post' do %>
+        <input type='hidden' name='blog_id' value='<%=b.id%>'>
+        <input type='text' name='comment'>
+        <input type='submit'>
+    <% end %>
+    <a href ="/destroy?id=<%=b.id%>">delete</a>
+    <a href ="/modify?id=<%=b.id%>">modify</a>
+    
+    <ol>
+    <% b.comments.reverse.each do |c|%>
+    <li><%=c.user.email%> : <%=c.msg%></li>
+    <% end %>
+    </ol>
+<% end %>
