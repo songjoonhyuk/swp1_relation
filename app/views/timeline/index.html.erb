@@ -2,23 +2,36 @@
 
 
 <%=form_tag 'write', method:'post' do %>
-    <textarea name="text"></textarea>
-    <input type="submit">
+    <div class="form-group">
+        <textarea name="text" class="form-control"></textarea>
+    </div>
+    <div class="form-group">
+        <input type="submit" class="btn btn-primary">
+    </div>
 <% end %>
 
+<ul>
 <% @blogs.each do |b| %>
-<li><%=b.user.email%> : <%=b.content%></li>
-    <%=form_tag 'comment', method:'post' do %>
+<li><p class="bg-info"><%=b.user.email%></p>
+    <div class="well">
+       <%=b.content%>
+    </div></li>
+    <%=form_tag 'comment', method:'post', class:"form-inline" do %>
         <input type='hidden' name='blog_id' value='<%=b.id%>'>
-        <input type='text' name='comment'>
-        <input type='submit'>
+            <div class="form-group">
+        <input type='text' name='comment' class="form-control">
+        </div>
+            <div class="form-group">
+        <input type='submit' class="btn btn-primary">
+        </div>
     <% end %>
     <a href ="/destroy?id=<%=b.id%>">delete</a>
     <a href ="/modify?id=<%=b.id%>">modify</a>
-    
+
     <ol>
     <% b.comments.reverse.each do |c|%>
     <li><%=c.user.email%> : <%=c.msg%></li>
     <% end %>
     </ol>
 <% end %>
+</ul>
